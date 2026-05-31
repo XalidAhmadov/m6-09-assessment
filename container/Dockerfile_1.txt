@@ -1,0 +1,19 @@
+# Lean CPU-only runtime image. No ultralytics / torch / opencv needed for inference.
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install deps first for better layer caching.
+COPY container/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# App code, model, and identity file.
+COPY container/app /app/app
+COPY container/models /app/models
+COPY container/STUDENT.json /app/STUDENT.json
+
+# cli.py imports `detector` as a top-level module, so put /app/app on the path.
+ENV PYTHONPATH=/app/app
+ENV PYTHONUNBUFFERED=1
+
+ENTRYPOINT ["python", "/app/app/cli.py"]

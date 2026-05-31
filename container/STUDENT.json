@@ -1,0 +1,13 @@
+{
+  "first_name": "REPLACE_ME",
+  "last_name": "REPLACE_ME",
+  "team": "replace-me",
+  "model": {
+    "framework": "yolo26",
+    "variant": "yolo26m",
+    "imgsz": 640,
+    "epochs_total": 80,
+    "tricks": ["larger_backbone_s_to_m", "cos_lr", "strong_aug_mixup_copypaste", "weight_decay", "early_stopping"]
+  },
+  "notes": "v2 best run; CPU ONNX e2e export"
+}
